@@ -42,7 +42,7 @@ todo.addEventListener('change', function(event){
     let valueLabel = todo.querySelector('[for=' + event.target.getAttribute('id') + ']').innerHTML;
     
     todoList.forEach(function(item){
-        if (item.todo === valueLabel){
+        if (item.todo === valueLabel.trim()){
             item.checked = !item.checked;
             localStorage.setItem('todo', JSON.stringify(todoList));
         }
@@ -52,13 +52,11 @@ todo.addEventListener('change', function(event){
 todo.addEventListener('contextmenu', function(event){
     event.preventDefault();
     todoList.forEach(function(item, i){
-        if (item.todo === event.target.innerHTML){
-            if (event.ctrlKey || event.metaKey){
+        if (item.todo === event.target.innerHTML.trim()){
+            if (event.ctrlKey || event.metaKey) {
                 todoList.splice(i, 1);
             }
-        } else{
-            item.important = !item.important;
-        }
+        } 
         displayMessages();
         localStorage.setItem('todo', JSON.stringify(todoList))
     });
